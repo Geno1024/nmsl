@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source ./nmsl.sh
+
+debug on
+
+# Step -1: Header
+packaging definition of "NMSL"
+
+# Step 0: Define packging tool
+use packaging tool "xz"
+output to "nmsl.npk"
