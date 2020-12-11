@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# shellcheck source=./nmsl.sh
 source ./nmsl.sh
 
 debug on
@@ -8,5 +9,24 @@ debug on
 packaging definition of "NMSL"
 
 # Step 0: Define packging tool
-use packaging tool "xz"
+use package tool "tar" # with extra ""
+use compression tool "xz" # with extra ""
 output to "nmsl.npk"
+
+# Step 1: Add some contents
+add file "nmsl.sh" "nmsl-example.nmsl"
+
+# Step 2: Pack and compress
+pack it
+compress it
+
+# Step 3: Add some hash checker
+use checksum method ck
+use checksum method sha256
+# use checksum tool whatever
+
+# Step 4: Add command line option
+add option "--extract" behavior is default
+
+# Step -1: Clean up
+clean everything
