@@ -20,6 +20,10 @@ add() {
         cp -r $* "$_NMSL_TEMPORARY"
         _NMSL_debug "Add folder \"$*\" to package"
     }
+    add_func() {
+        echo "$1() {" >> "$_NMSL_OUTPUT_TO"
+        echo "}" >> "$_NMSL_OUTPUT_TO"
+    }
     add_option() {
         echo >> "$_NMSL_OUTPUT_TO"
         echo "$1() {" >> "$_NMSL_OUTPUT_TO"
@@ -27,6 +31,7 @@ add() {
         _NMSL_debug "Add option \"$1\" to package"
         shift
         $*
+        echo "}" >> "$_NMSL_OUTPUT_TO"
     }
     ${FUNCNAME[0]}_$*
 }
@@ -41,6 +46,10 @@ behavior() {
                 *)
                     _NMSL_info "Option \"$_NMSL_BEHAVIOR_FOR\" doesn't have a default behavior."
             esac
+        }
+        behavior_is_empty() {
+            _NMSL_debug "With empty behavior"
+            echo "    :" >> "$_NMSL_OUTPUT_TO"
         }
         ${FUNCNAME[0]}_$*
     }
